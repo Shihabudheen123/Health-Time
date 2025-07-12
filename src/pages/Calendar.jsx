@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import AppointmentForm from '../components/AppointmentForm';
+import React, { useState, useEffect } from "react";
+import AppointmentForm from "../components/AppointmentForm";
 
 const Calendar = () => {
   const [appointments, setAppointments] = useState([]);
 
   useEffect(() => {
-    const saved = localStorage.getItem('appointments');
+    const saved = localStorage.getItem("appointments");
     if (saved) setAppointments(JSON.parse(saved));
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('appointments', JSON.stringify(appointments));
+    localStorage.setItem("appointments", JSON.stringify(appointments));
   }, [appointments]);
 
   const handleAddAppointment = (appointment) => {
@@ -18,8 +18,8 @@ const Calendar = () => {
   };
 
   const formatTime = (timeString) => {
-    const [hours, minutes] = timeString.split(':');
-    const period = hours >= 12 ? 'PM' : 'AM';
+    const [hours, minutes] = timeString.split(":");
+    const period = hours >= 12 ? "PM" : "AM";
     const hours12 = hours % 12 || 12;
     return `${hours12}:${minutes} ${period}`;
   };
@@ -52,8 +52,12 @@ const Calendar = () => {
                   </svg>
                 </div>
               </div>
-              <h1 className="text-3xl font-bold text-white drop-shadow-md">HealthTime Calendar</h1>
-              <p className="text-blue-100 mt-2 font-light">Manage your clinic appointments</p>
+              <h1 className="text-3xl font-bold text-white drop-shadow-md">
+                HealthTime Calendar
+              </h1>
+              <p className="text-blue-100 mt-2 font-light">
+                Manage your clinic appointments
+              </p>
             </div>
           </div>
         </div>
@@ -72,16 +76,24 @@ const Calendar = () => {
                 <div className="absolute bottom-0 left-0 w-24 h-24 bg-white rounded-full transform -translate-x-12 translate-y-12"></div>
               </div>
               <div className="relative z-10">
-                <h2 className="text-xl font-bold text-white">Appointment Calendar</h2>
+                <h2 className="text-xl font-bold text-white">
+                  Appointment Calendar
+                </h2>
                 <p className="text-blue-100 text-sm mt-1">
-                  {new Date().toLocaleDateString('default', { month: 'long', year: 'numeric' })}
+                  {new Date().toLocaleDateString("default", {
+                    month: "long",
+                    year: "numeric",
+                  })}
                 </p>
               </div>
             </div>
 
             <div className="grid grid-cols-7 gap-1 bg-gray-50 p-2 border-b border-gray-200">
-              {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-                <div key={day} className="text-center text-sm font-medium text-gray-600 py-2">
+              {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
+                <div
+                  key={day}
+                  className="text-center text-sm font-medium text-gray-600 py-2"
+                >
                   {day}
                 </div>
               ))}
@@ -89,10 +101,12 @@ const Calendar = () => {
 
             <div className="grid grid-cols-7 auto-rows-fr gap-1 p-3 min-h-[600px]">
               {Array.from({ length: 31 }, (_, i) => i + 1).map((day) => {
-                const dayAppointments = appointments.filter(app => app.day === day - 1);
+                const dayAppointments = appointments.filter(
+                  (app) => app.day === day - 1
+                );
                 return (
-                  <div 
-                    key={day} 
+                  <div
+                    key={day}
                     className="group flex flex-col p-2 border border-gray-200 rounded-lg hover:bg-gray-50 transition relative"
                   >
                     <div className="text-right text-sm font-medium text-gray-600 mb-1">
@@ -100,13 +114,17 @@ const Calendar = () => {
                     </div>
                     <div className="flex-1 space-y-1 overflow-y-auto">
                       {dayAppointments.map((app, index) => (
-                        <div 
-                          key={index} 
+                        <div
+                          key={index}
                           className="text-xs p-2 bg-blue-50 rounded border border-blue-100 text-blue-800"
                         >
-                          <div className="font-medium">{formatTime(app.time)}</div>
+                          <div className="font-medium">
+                            {formatTime(app.time)}
+                          </div>
                           <div className="truncate">{app.patient}</div>
-                          <div className="text-blue-600 text-xs truncate">{app.doctor}</div>
+                          <div className="text-blue-600 text-xs truncate">
+                            {app.doctor}
+                          </div>
                         </div>
                       ))}
                     </div>
